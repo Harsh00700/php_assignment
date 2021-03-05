@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if (isset($_POST['logout']) )
+	if (isset($_POST['cancel']) )
 	{
 		header("Location: index.php");
 		return;
@@ -88,7 +88,7 @@
 				<div class="form-group">
 					<div class="col-sm-2 col-sm-offset-2">
 						<input class="btn btn-primary" type="submit" value="Log In">
-						<input class="btn" type="submit" name="logout" value="Cancel">
+						<input class="btn" type="submit" name="cancel" value="Cancel">
 					</div>
 				</div>
 			</form>

@@ -2,7 +2,7 @@
 	session_start();
 	if ( ! isset($_SESSION['name']) )
 	{
-		die("Not Logged In ! ");
+		die("ACCESS DENIED :( (Not Logged In ! )");
 	}
 	if (isset($_POST['cancel']) )
 	{
@@ -12,10 +12,10 @@
 	$status = false;
 	if (isset($_SESSION['status']) )
 	{
-		$status = $_SESSION['status'];
-		$status_color = $_SESSION['color'];
+		$status = htmlentities($_SESSION['status']);
+		$status_color = htmlentities($_SESSION['color']);
 		unset($_SESSION['status']);
-			unset($_SESSION['color']);
+		unset($_SESSION['color']);
 	}
 	try
 	{
@@ -27,33 +27,33 @@
 	}
 	$name = htmlentities($_SESSION['name']);
 	$_SESSION['color'] = 'red';
-	if (isset($_POST['make']) && isset($_POST['year']) && isset($_POST['mileage']) ) 
+	if (isset($_POST['make']) && isset($_POST['model']) && isset($_POST['year']) && isset($_POST['mileage']) )
 	{
-		if ( !is_numeric($_POST['mileage']) || !is_numeric($_POST['year'])) 
+		if ( !is_numeric($_POST['mileage']) || !is_numeric($_POST['year']))
 		{
 			$_SESSION['status'] = "Year And Mileage Must Be Numeric :) ";
 			header("Location: add.php");
 			return;
 		}
-		elseif (strlen($_POST['make']) < 1) 
+		elseif (strlen($_POST['make']) < 1 || strlen($_POST['model']) < 1 )
 		{
-			$_SESSION['status'] = "Make is required :) ";
+			$_SESSION['status'] = "Make And Model is required :) ";
 			header("Location: add.php");
 			return;
 		}
 		else
 		{
 			$make = htmlentities($_POST['make']);
+			$model = htmlentities($_POST['model']);
 			$year = htmlentities($_POST['year']);
 			$mileage = htmlentities($_POST['mileage']);
-
-			$stmt = $pdo->prepare("INSERT INTO autos (make, year, mileage) VALUES (:make, :year, :mileage)");
+			$stmt = $pdo->prepare("INSERT INTO autos (make, model, year, mileage) VALUES (:make, :model, :year, :mileage)");
 			$stmt->execute([
 				':make' => $make,
+				':model' => $model,
 				':year' => $year,
 				':mileage' => $mileage,
 			]);
-
 			$_SESSION['status'] = "Record Inserted :) ";
 			$_SESSION['color'] = "green";
 			header("Location: view.php");
@@ -80,7 +80,7 @@
 					echo
 					(
 			'<p style="color: ' .$status_color. ';" class="col-sm-10 col-sm-offset-2">'.
-				htmlentities($status).
+					htmlentities($status).
 			"</p>\n"
 			);
 							}
@@ -91,6 +91,13 @@
 					<label class="control-label col-sm-2" for="make">Make: </label>
 					<div class="col-sm-3">
 						<input class="form-control" type="text" name="make" id="make">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="model">Model: </label>
+					<div class="col-sm-3">
+						<input class="form-control" type="text" name="model" id="model">
 					</div>
 				</div>
 				

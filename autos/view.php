@@ -56,6 +56,7 @@
 				<li>
 					<?php echo $auto->year; ?>
 					<?php echo $auto->make; ?>
+					<?php echo $auto->model; ?>
 					<?php echo $auto->mileage; ?>
 				</li>
 				<?php endforeach; ?>
