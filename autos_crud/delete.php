@@ -17,6 +17,8 @@
 		die();
 	}
 
+	$name = $_SESSION['name'];
+
 	if (isset($_REQUEST['autos_id']) ) 
 	{
 		$auto_id = htmlentities($_REQUEST['autos_id']);
@@ -58,9 +60,19 @@
 <body style="font-family: josefin sans">
 
 	<div class="container">
+
+		<h1>
+			Deleting Automobiles For <?php echo $name; ?>
+		</h1>
 		
 		<p>
-			Confirm: Deleting <?php echo $auto->make; ?>
+			Confirm Deleting: 
+			<?php 
+			
+				echo $auto->make, "\n";
+				echo $auto->model; 
+			
+			?>
 		</p>
 
 		<form method="post" class="form-horizontal">

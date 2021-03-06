@@ -44,19 +44,19 @@
             if (strlen($_POST['make']) < 1 || strlen($_POST['model']) < 1 || strlen($_POST['year']) < 1 || strlen($_POST['mileage']) < 1) 
             {
                 $_SESSION['status'] = "All Fields Are Required :) ";
-                header("Location: edit.php?autos_id" . htmlentities($_REQUEST['auto_id']));
+                header("Location: edit.php?autos_id=" . htmlentities($_REQUEST['autos_id']));
                 return;
             }
             if ( ! is_numeric($_POST['year']) ) 
             {
                 $_SESSION['status'] = "Year Must Be An Integer :) ";
-                header("Location: edit.php?autos_id" . htmlentities($_REQUEST['auto_id']));
+                header("Location: edit.php?autos_id=" . htmlentities($_REQUEST['autos_id']));
                 return;
             }
              if ( ! is_numeric($_POST['mileage']) ) 
             {
                 $_SESSION['status'] = "Mileage Must Be An Integer :) ";
-                header("Location: edit.php?autos_id" . htmlentities($_REQUEST['auto_id']));
+                header("Location: edit.php?autos_id=" . htmlentities($_REQUEST['autos_id']));
                 return;
             }
 
@@ -110,7 +110,7 @@
 	<div class="container">
 		
 		<h1>
-			Tracking Automobiles For <?php echo $name; ?>
+			Editing Automobiles For <?php echo $name; ?>
 		</h1>
 
 		<?php
@@ -153,7 +153,7 @@
                 </div>
                 <div class="form-group">
                 	<div class="col-sm-2 col-sm-offset-2">
-                		<input class="btn btn-primary" type="submit" value="ADD">
+                		<input class="btn btn-primary" type="submit" value="EDIT">
                 		<input class="btn" type="submit" name="cancel" value="Cancel">
                 	</div>
                 </div>
